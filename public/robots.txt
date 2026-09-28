@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mt-metal-arco.marcosalves-blv.chatgpt.site/sitemap-index.xml

@@ -1,0 +1,6 @@
+---
+import {empresa,whatsappUrl} from '../data/empresa';
+import {servicos} from '../data/servicos';
+---
+<footer class="footer wrap"><div class="footer-top"><p class="mono">A BASE É O AÇO.<br/>O PRÓXIMO PASSO É SEU.</p><a class="text-link" href={whatsappUrl}>Vamos falar da sua obra <span aria-hidden="true">↗</span></a></div><div class="footer-word" aria-hidden="true">MT METAL<span class="footer-fill">MT METAL</span></div><div class="footer-grid"><div><strong>{empresa.razaoSocial}</strong><p>CNPJ {empresa.cnpj}</p><p>{empresa.endereco}</p></div><nav aria-label="Serviços no rodapé">{servicos.map(s=><a href={`/servicos/${s.slug}/`}>{s.titulo}</a>)}</nav><div><a href={`tel:${empresa.tel}`}>{empresa.telefone}</a><a href={whatsappUrl}>WhatsApp {empresa.whatsappFormatado}</a><p>Várzea Grande · Mato Grosso</p></div></div><div class="footer-bottom mono"><span>© {new Date().getFullYear()} MT METAL LTDA</span><span>Imagens ilustrativas</span><a href="#main">Voltar ao topo ↑</a></div></footer>
+

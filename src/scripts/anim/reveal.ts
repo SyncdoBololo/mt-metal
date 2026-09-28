@@ -1,0 +1,4 @@
+import gsap from 'gsap';
+import {SplitText} from 'gsap/SplitText';
+gsap.registerPlugin(SplitText);
+export function reveal(){gsap.utils.toArray<HTMLElement>('.section-head,.about-copy>p,.scaffold-grid article,.safety,.process-list li,.contact-copy,.detail-scope li').forEach(el=>gsap.from(el,{y:24,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}}));const text=document.querySelector('.manifesto');let split:SplitText|undefined;if(text)split=SplitText.create(text,{type:'words',aria:'auto',autoSplit:true,onSplit:self=>gsap.from(self.words,{opacity:.55,stagger:.06,duration:.7,scrollTrigger:{trigger:text,start:'top 80%',end:'bottom 45%',scrub:true}})});const blades=document.querySelectorAll('.shutter-blades span');if(blades.length)gsap.fromTo(blades,{scaleY:1},{scaleY:0,stagger:.06,duration:.8,ease:'power4.inOut',scrollTrigger:{trigger:'.shutter-image',start:'top 85%',once:true}});return()=>split?.revert();}

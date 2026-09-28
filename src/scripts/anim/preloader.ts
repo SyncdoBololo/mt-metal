@@ -1,0 +1,3 @@
+import gsap from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
+export function preloader(){if(!document.querySelector('.load-line'))return;try{if(sessionStorage.getItem('mt-visited'))return;sessionStorage.setItem('mt-visited','1');}catch{}const counter={n:0};gsap.set('.load-line b',{display:'block'});gsap.to('.load-line span',{scaleX:1,duration:1.1,ease:'power3.out'});gsap.to(counter,{n:100,duration:1.1,onUpdate:()=>{const b=document.querySelector('.load-line b');if(b)b.textContent=String(Math.round(counter.n)).padStart(3,'0');},onComplete:()=>{gsap.to('.load-line',{opacity:0,duration:.2});ScrollTrigger.refresh();}});}
