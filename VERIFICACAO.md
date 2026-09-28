@@ -36,3 +36,19 @@ Dados ainda dependentes do cliente: logo definitivo, e-mail, Instagram, raio de 
 - `playwright.config.ts`, `scripts/lighthouse.mjs` e `scripts/social-card.mjs` funcionam em Windows e em outros sistemas (variável `CHROME_PATH`), e o `npm test` sobe o preview sozinho.
 
 Resultado: build com 0 erros, 0 avisos e 0 dicas, 19 de 19 testes Playwright aprovados, Lighthouse mobile 98 / 100 / 100 / 100.
+
+## Auditoria com a skill CodeMakers-Design
+
+Skill instalada em `.claude/skills/codemakers-design/` e aplicada no modo redesign com auditoria, seguindo `references/quality-review.md`, `visual-debugging.md`, `interaction-accessibility.md` e `motion-choreography.md`. Contrastes medidos com `scripts/contrast_check.py`.
+
+| Área | Achado | Prioridade | Situação |
+|---|---|---|---|
+| Legibilidade | 30 rótulos técnicos com 8 a 10 px (6 px no subtítulo do logo no celular) | Importante | Corrigido, mínimo de 11 px. Logo com 8 px no celular e 9 px no desktop |
+| Foco por teclado | Contorno azul-claro sobre a seção creme do reservatório, 1,30:1 (mínimo 3:1) | Importante | Corrigido, contorno grafite nessa seção (16,3:1) |
+| Alvo de toque | "Voltar ao topo" com 106×17 px | Importante | Corrigido, 44 px de altura |
+| Contraste de texto | Pares medidos entre 6,17:1 e 16,31:1. "PROJETO." em #7B7B76 sobre creme tem 3,55:1, válido por ser texto grande | Verificado | Sem alteração |
+| Formulário | Rótulos associados, `autocomplete`, `required` e foco no primeiro campo vazio ao enviar | Verificado | Sem alteração |
+| Reflow | Rolagem horizontal zero em 1440, 390 e 320 px | Verificado | Sem alteração |
+| Leitor de tela | Não testado neste ambiente | Não verificado | Recomendado teste com NVDA ou VoiceOver |
+
+Depois das correções, o build terminou sem erros, os 19 testes passaram e o Lighthouse mobile ficou em 98 / 100 / 100 / 100 (CLS 0).

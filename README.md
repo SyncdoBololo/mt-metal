@@ -27,6 +27,10 @@ A linha inicial dura 1,1 s, só na primeira visita da sessão; não cobre a imag
 
 Validação nativa no navegador. Nome, telefone, cidade, serviço e mensagem compõem a URL codificada `https://wa.me/5565993298833?text=...`. A página abre o WhatsApp; o visitante revisa e envia a mensagem. Nenhuma informação é armazenada no site. Há link de recuperação caso o navegador bloqueie a nova janela. Testes interceptam a abertura; nenhuma mensagem de teste é enviada.
 
+## Skill de design
+
+A skill CodeMakers-Design está em `.claude/skills/codemakers-design/`. O Claude Code a carrega automaticamente neste repositório. Para checar contraste sem o Claude, rode `python .claude/skills/codemakers-design/scripts/contrast_check.py '#A4A8AF' '#0B0C0E'`.
+
 ## Verificação
 
 - `npm run build`: TypeScript e geração estática.
