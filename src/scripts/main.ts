@@ -1,21 +1,15 @@
-const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-let motionPaused=reduced.matches;
 const video=document.querySelector<HTMLVideoElement>('#hero-video');
-const toggle=document.querySelector<HTMLButtonElement>('#motion-toggle');
-if(video&&toggle){
- toggle.hidden=false;
- const update=()=>{toggle.textContent=motionPaused?'Reproduzir movimento ▷':'Pausar movimento Ⅱ';toggle.setAttribute('aria-pressed',String(motionPaused));};
- const start=()=>{if(!video.src){const size=innerWidth<768?'mobile':'desktop';const mp4=video.canPlayType('video/mp4; codecs="avc1.64001F"')!=='';video.src=`${import.meta.env.BASE_URL.replace(/\/$/,'')}/media/hero-${size}.${mp4?'mp4':'webm'}`;}video.play().then(()=>video.classList.add('playing')).catch(()=>{toggle.textContent='Reproduzir vídeo ▷';});};
- const setPaused=(paused:boolean)=>{motionPaused=paused;if(paused)video.pause();else start();update();window.dispatchEvent(new CustomEvent('mt-motion',{detail:paused}));};
- toggle.addEventListener('click',()=>setPaused(!motionPaused));
- const connection=(navigator as Navigator & {connection?:{saveData?:boolean}}).connection;
- if(connection?.saveData)motionPaused=true;
- let visible=false;
- new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible&&!motionPaused&&document.readyState==='complete')start();else video.pause();}).observe(video);
- window.addEventListener('load',()=>{if(visible&&!motionPaused)start();},{once:true});
- document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else if(visible&&!motionPaused)start();});
- reduced.addEventListener('change',()=>{setPaused(reduced.matches);if(reduced.matches)video.classList.remove('playing');});
- update();
+if(video){
+ // Vídeo do hero sempre em reprodução automática e loop infinito. Só pausa
+ // enquanto está fora da tela ou com a aba oculta, e retoma sozinho depois.
+ const start=()=>{if(!video.src){const size=innerWidth<768?'mobile':'desktop';const mp4=video.canPlayType('video/mp4; codecs="avc1.64001F"')!=='';video.src=`${import.meta.env.BASE_URL.replace(/\/$/,'')}/media/hero-${size}.${mp4?'mp4':'webm'}`;}video.muted=true;video.play().then(()=>video.classList.add('playing')).catch(()=>{});};
+ let visible=true;
+ new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)start();else video.pause();}).observe(video);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else if(visible)start();});
+ // Alguns celulares (modo economia de energia) bloqueiam o autoplay até o primeiro toque.
+ const retry=()=>{if(video.paused&&visible)start();};
+ ['touchstart','pointerdown','scroll','keydown'].forEach(ev=>window.addEventListener(ev,retry,{once:true,passive:true}));
+ if(document.readyState==='complete')start();else window.addEventListener('load',start,{once:true});
 }
 const menu=document.querySelector<HTMLDialogElement>('#mobile-menu');
 const menuToggle=document.querySelector<HTMLButtonElement>('.menu-toggle');

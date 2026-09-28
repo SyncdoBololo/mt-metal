@@ -15,7 +15,7 @@ Auditoria local do build de produção em 28/09/2026, refeita após a revisão f
 
 Build: 8 páginas estáticas, zero erros e zero avisos TypeScript.
 
-Playwright: 19 testes passaram. Home e armação verificadas em 320, 375, 768 e 1440 px, com e sem movimento reduzido. Zero erros de console e nenhuma rolagem horizontal nessas condições. Testes funcionais validaram menu/Esc, filtros, mensagem WhatsApp sem envio real, transição/Voltar, vídeo/pausa, movimento reduzido e conteúdo sem JavaScript. Após a otimização da fonte da hero, foram repetidos os testes afetados de hero e viewport móvel.
+Playwright: 19 testes passaram. Home e armação verificadas em 320, 375, 768 e 1440 px, com e sem movimento reduzido. Zero erros de console e nenhuma rolagem horizontal nessas condições. Testes funcionais validaram menu/Esc, filtros, mensagem WhatsApp sem envio real, transição/Voltar, vídeo automático em loop, movimento reduzido e conteúdo sem JavaScript. Após a otimização da fonte da hero, foram repetidos os testes afetados de hero e viewport móvel.
 
 Screenshots em `tests/screenshots/`. Relatório em `tests/lighthouse.html`, dados brutos em `tests/lighthouse.json`. Resultados medidos localmente não garantem a mesma nota em toda rede/dispositivo.
 

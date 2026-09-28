@@ -19,7 +19,7 @@ Requer Node 22.12+ (validado com Node 24). `npm install`, `npm run dev`, `npm ru
 
 ## Vídeo da hero
 
-O original de 10 segundos foi convertido em H.264 sem áudio e com faststart: `public/media/hero-desktop.mp4` (1,64 MB) e `hero-mobile.mp4` (536 KB). Há também versões VP9 (`hero-desktop.webm`, `hero-mobile.webm`), usadas automaticamente em navegadores sem suporte a H.264. Mantidos enquadramento e proporção, com object-fit cover para a viewport. Não há download automático com movimento reduzido ou economia de dados detectada. O vídeo pausa fora da tela e em aba inativa. O controle “Pausar movimento” pausa também os efeitos decorativos. Se autoplay falhar, a foto continua visível e há controle de reprodução.
+O original de 10 segundos foi convertido em H.264 sem áudio e com faststart: `public/media/hero-desktop.mp4` (1,64 MB) e `hero-mobile.mp4` (536 KB). Há também versões VP9 (`hero-desktop.webm`, `hero-mobile.webm`), usadas automaticamente em navegadores sem suporte a H.264. Mantidos enquadramento e proporção, com object-fit cover para a viewport. O vídeo toca automaticamente, sem som e em loop infinito, para todos os visitantes, sem botão de pausa. Ele só pausa enquanto está fora da tela ou com a aba em segundo plano, e retoma sozinho ao voltar. Se o navegador bloquear o autoplay (alguns celulares em economia de energia), o vídeo começa no primeiro toque ou rolagem, e até lá a foto 01 fica visível.
 
 A linha inicial dura 1,1 s, só na primeira visita da sessão; não cobre a imagem nem o título. As faíscas artificiais aparecem apenas sobre o fallback parado, pois o vídeo já contém solda real. A navegação é MPA com lâminas, preserva cliques modificados, âncoras e Voltar. No modo reduzido, Lenis, pin, cursor, marquee, parallax e faíscas são desligados; o conteúdo permanece acessível sem JavaScript.
 
@@ -30,7 +30,7 @@ Validação nativa no navegador. Nome, telefone, cidade, serviço e mensagem com
 ## Verificação
 
 - `npm run build`: TypeScript e geração estática.
-- `npm test`: Playwright. Home e armação em 320×812, 375×812, 768×1024 e 1440×900, com e sem movimento reduzido; verifica console, h1 e rolagem horizontal. Também cobre menu/Esc, filtros, formulário, transição/Voltar, vídeo/pausa e ausência de JavaScript.
+- `npm test`: Playwright. Home e armação em 320×812, 375×812, 768×1024 e 1440×900, com e sem movimento reduzido; verifica console, h1 e rolagem horizontal. Também cobre menu/Esc, filtros, formulário, transição/Voltar, vídeo automático em loop e ausência de JavaScript.
 - `tests/screenshots/`: imagens de topo e página inteira. Screenshots de página inteira com pin podem mostrar espaço de rolagem reservado; validar a experiência fixada também em viewport normal.
 - `node scripts/lighthouse.mjs`: auditoria mobile do build servido em `http://127.0.0.1:4322/`; resultados em `tests/lighthouse.html` e `tests/lighthouse.json`.
 - `node scripts/bundle-size.mjs`: total dos módulos em gzip; medido aproximadamente 68 KB, abaixo de 120 KB.
