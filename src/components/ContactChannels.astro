@@ -1,0 +1,11 @@
+---
+import {contatos} from '../data/empresa';
+---
+<div class="contact-channels" aria-label="Canais de atendimento" role="group">
+ {contatos.map(contato=><div class="contact-channel">
+  <p class="mono contact-sector">{contato.setor}</p>
+  <span class="contact-person">{contato.nome}</span>
+  <a class="contact-whatsapp" href={contato.url} target="_blank" rel="noopener" aria-label={`WhatsApp ${contato.setor}: ${contato.formatado}`}><span>{contato.formatado}</span><span aria-hidden="true">↗</span></a>
+  <a class="contact-email" href={`mailto:${contato.email}`}>{contato.email}</a>
+ </div>)}
+</div>

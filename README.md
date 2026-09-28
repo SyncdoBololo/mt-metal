@@ -1,6 +1,6 @@
 # MT METAL — A luz do arco
 
-Site institucional estático em Astro e TypeScript. Home, seis páginas de serviço e 404. O vídeo fornecido pelo cliente compõe a hero; a foto 01 aparece imediatamente como capa e fallback. Fotos do ZIP são ilustrativas, sem atribuição a clientes ou obras reais.
+Site institucional estático em Astro e TypeScript. Home, seis páginas de serviço e 404. O vídeo fornecido pelo cliente compõe a hero; a foto 01 aparece imediatamente como capa e fallback. A galeria usa 12 fotos extraídas do portfólio fornecido pela MT METAL. As imagens das outras seções continuam ilustrativas, sem atribuição a clientes ou obras reais.
 
 ## Rodar
 
@@ -8,12 +8,12 @@ Requer Node 22.12+ (validado com Node 24). `npm install`, `npm run dev`, `npm ru
 
 ## Editar
 
-- `src/data/empresa.ts`: dados cadastrais, telefone e WhatsApp. O número 55 65 99329-8833 foi confirmado pelo cliente nesta conversa. Não presumir que o telefone fixo tenha WhatsApp.
+- `src/data/empresa.ts`: dados cadastrais, telefone e WhatsApp. Comercial: (65) 99601-1432; área técnica: (65) 99333-0619. Os dois números substituem o contato anterior e foram confirmados pelo cliente. Nomes, funções e e-mails vêm do PDF recebido. Não presumir que o telefone fixo tenha WhatsApp.
 - `src/data/servicos.ts`: seis pilares, descrições, CNAEs, fotos, FAQ e metadados. As rotas são geradas a partir desses dados.
-- `src/data/portfolio.ts`: aplicações ilustrativas; trocar por obras reais somente com informações confirmadas.
+- `src/data/portfolio.ts`: 12 fotos do acervo recebido, descrições visuais e página de origem no PDF. Não há clientes, cidades, datas ou métricas inferidos.
 - `src/pages/index.astro`: composição e textos institucionais.
 - `src/assets/img/`: imagens originais. `Photo.astro` gera AVIF e WebP em 480, 640, 768, 1080, 1600 e 2400 px, qualidade 60, sem ampliar além do original. A foto 02 e a pasta `referencia/` não são usadas na interface.
-- `src/assets/logo.svg`: wordmark provisório, com perfil I. O header usa a mesma direção tipográfica; substituir ambos pelo logo oficial.
+- `src/assets/brand/logo-mt-metal.svg`: marca vetorial extraída da página 16 do portfólio, sem redesenho ou geração por IA. A versão horizontal conserva o lettering e a assinatura Metalúrgica. `src/assets/logo.svg` espelha esse arquivo para compatibilidade.
 - `src/styles/tokens.css` e `global.css`: cores e composição responsiva. O cinza de texto foi clareado para leitura sobre grafite.
 - `src/scripts/anim/`: módulos GSAP, ScrollTrigger, SplitText, DrawSVG, Flip, Lenis, cursor, transição e hero.
 
@@ -25,7 +25,7 @@ A linha inicial dura 1,1 s, só na primeira visita da sessão; não cobre a imag
 
 ## Formulário
 
-Validação nativa no navegador. Nome, telefone, cidade, serviço e mensagem compõem a URL codificada `https://wa.me/5565993298833?text=...`. A página abre o WhatsApp; o visitante revisa e envia a mensagem. Nenhuma informação é armazenada no site. Há link de recuperação caso o navegador bloqueie a nova janela. Testes interceptam a abertura; nenhuma mensagem de teste é enviada.
+Validação nativa no navegador. Nome, telefone, cidade, serviço e mensagem compõem a URL codificada `https://wa.me/5565996011432?text=...` (comercial) ou `https://wa.me/5565993330619?text=...` (área técnica), conforme a seleção do visitante. A página abre o WhatsApp; o visitante revisa e envia a mensagem. Nenhuma informação é armazenada no site. Há link de recuperação caso o navegador bloqueie a nova janela. Testes interceptam a abertura; nenhuma mensagem de teste é enviada.
 
 ## Skill de design
 
@@ -62,18 +62,24 @@ Com domínio próprio (no GitHub Pages, na Vercel ou na Netlify), defina `SITE_U
 
 | Pendente | Onde |
 |---|---|
-| `{{TODO: e-mail comercial}}` | empresa.ts; não exibido como contato ativo |
 | `{{TODO: @ do Instagram}}` | empresa.ts; não exibido como link ativo |
 | `{{TODO: confirmar raio de atendimento}}` | empresa.ts; municípios mencionados conforme briefing |
-| `{{TODO: substituir pelo logo oficial}}` | logo.svg, header e rodapé |
 | `TODO: confirmar bitolas e capacidade de produção` | FAQ de armação (resposta provisória genérica no site) |
 | `TODO: confirmar capacidades dos reservatórios` | FAQ de reservatórios (resposta provisória genérica no site) |
 | altura, diâmetro e capacidade (hoje exibidos como “SOB PROJETO”) | ficha técnica ilustrativa da home, comentário TODO em index.astro |
 | `TODO: confirmar frota e disponibilidade` | FAQ de infraestrutura (resposta provisória genérica no site) |
 | `TODO: confirmar composição da equipe` | FAQ de andaimes; “equipe própria” não foi afirmado |
 
-Também confirmar domínio definitivo e fornecer fotos e informações de obras reais para substituir o portfólio ilustrativo. Certificações, NRs específicas, coordenadas, horários e avaliações foram omitidos porque não foram informados. O diagrama de atendimento é esquemático e não afirma uma coordenada exata. Link do Google Maps pesquisa o endereço completo fornecido.
+Também confirmar domínio definitivo e fornecer os arquivos originais das fotos para exibições maiores. O PDF comprime as fotos para aproximadamente 380–414 px; a galeria usa colunas compactas e não gera resoluções acima do original. Certificações, NRs específicas, coordenadas, horários e avaliações foram omitidos porque não foram informados. O diagrama de atendimento é esquemático e não afirma uma coordenada exata. Link do Google Maps pesquisa o endereço completo fornecido.
 
 ## Referências técnicas
 
 [Astro Picture](https://docs.astro.build/en/reference/modules/astro-assets/) e [GSAP SplitText](https://gsap.com/docs/v3/Plugins/SplitText/).
+
+## Materiais do cliente — atualização de 28/09/2026
+
+- Marca: vetor extraído do PDF, amarelo oficial `#FFCC29`; aplicado ao cabeçalho e aos destaques sem alterar a composição aprovada.
+- Portfólio: 12 fotografias do PDF em `src/assets/portfolio/`. Filtros mostram apenas as três categorias com material recebido. O documento integral está em `public/downloads/portfolio-mt-metal.pdf`, carregado apenas ao clicar no download.
+- Contatos: GLEIDYSON PIASECKI (Comercial) e JOSÉ AUGUSTO DUARTE (Área técnica), com WhatsApps e e-mails apresentados no contato e rodapé. Formulário permite escolher o destinatário, comercial por padrão.
+- Os dois JPEGs enviados serviram de referência de identidade. O mockup do veículo não foi apresentado como evidência de frota própria.
+- Mantidos o vídeo, as animações, as seis páginas de serviço, o prefixo `withBase()` e a publicação existente pelo GitHub Pages.

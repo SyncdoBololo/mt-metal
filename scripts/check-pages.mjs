@@ -1,0 +1,6 @@
+import {chromium} from '@playwright/test';
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto('http://127.0.0.1:4324/mt-metal/');await page.waitForLoadState('networkidle');
+const paths=await page.evaluate(()=>({logo:document.querySelector('.brand-logo').getAttribute('src'),pdf:document.querySelector('.portfolio-download').getAttribute('href'),service:document.querySelector('.service-body a').getAttribute('href'),canonical:document.querySelector('link[rel=canonical]').href}));
+for(const [name,path] of Object.entries(paths)){if(name==='canonical')continue;if(!path.startsWith('/mt-metal/'))throw Error(`${name}: prefixo ausente`);const response=await page.request.get('http://127.0.0.1:4324'+path);if(response.status()!==200)throw Error(`${name}: ${response.status()}`);}
+await page.goto('http://127.0.0.1:4324/mt-metal/servicos/armacao/');if(await page.locator('h1').count()!==1)throw Error('Rota de serviço inválida');if(errors.length)throw Error(errors.join('\n'));console.log(JSON.stringify({status:'ok',paths}));await browser.close();
