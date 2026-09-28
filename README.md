@@ -40,7 +40,19 @@ Notas Lighthouse e resultados finais estão em `VERIFICACAO.md`. Auditoria autom
 
 ## Publicar
 
-`npm run build` gera `dist/`, compatível com hospedagem estática, Netlify ou Vercel. Defina `SITE_URL` para o domínio definitivo antes do build e ajuste `public/robots.txt`. A configuração atual usa a prévia privada em Sites, registrada em `.openai/hosting.json`. Canonical e sitemap usam o endereço configurado. A imagem de compartilhamento `public/og.jpg` tem 1200×630 e foi composta a partir da foto 01 e tipografia do site. Para recriá-la, rode `scripts/social-card.mjs` com a prévia local ativa.
+### GitHub Pages (configurado)
+
+O workflow `.github/workflows/deploy.yml` gera e publica o site a cada envio para a branch `main`, em `https://syncdobololo.github.io/mt-metal/`. Na primeira vez, ative em **Settings > Pages > Build and deployment > Source: GitHub Actions**. Depois, rode o workflow em **Actions > Publicar no GitHub Pages > Run workflow** ou faça um novo envio.
+
+O site roda na subpasta `/mt-metal/` por causa das variáveis `SITE_URL` e `BASE_PATH` definidas no workflow. Todos os links internos passam por `withBase()` (`src/lib/url.ts`), e o `robots.txt` é gerado em `src/pages/robots.txt.ts`. Ao criar um link interno novo, use `withBase('/caminho/')`.
+
+### Domínio próprio
+
+Com domínio próprio (no GitHub Pages, na Vercel ou na Netlify), defina `SITE_URL` com o domínio e deixe `BASE_PATH` vazio. No GitHub Pages, configure o domínio em **Settings > Pages > Custom domain** e troque, no workflow, `SITE_URL` pelo domínio e `BASE_PATH` por `/`.
+
+### Outras hospedagens
+
+`npm run build` gera `dist/`, compatível com qualquer hospedagem estática. A imagem de compartilhamento `public/og.jpg` tem 1200×630 e foi composta a partir da foto 01 e da tipografia do site. Para recriá-la, rode `scripts/social-card.mjs` com a prévia local ativa.
 
 ## Pendências do cliente, todos os TODOs
 

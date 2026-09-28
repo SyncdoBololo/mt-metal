@@ -1,1 +1,1 @@
-{"name":"MT METAL","short_name":"MT METAL","start_url":"/","display":"standalone","background_color":"#0B0C0E","theme_color":"#0B0C0E","icons":[{"src":"/favicon.svg","sizes":"any","type":"image/svg+xml"}]}
+{"name":"MT METAL","short_name":"MT METAL","start_url":"./","display":"standalone","background_color":"#0B0C0E","theme_color":"#0B0C0E","icons":[{"src":"favicon.svg","sizes":"any","type":"image/svg+xml"}]}

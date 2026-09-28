@@ -5,7 +5,7 @@ const toggle=document.querySelector<HTMLButtonElement>('#motion-toggle');
 if(video&&toggle){
  toggle.hidden=false;
  const update=()=>{toggle.textContent=motionPaused?'Reproduzir movimento ▷':'Pausar movimento Ⅱ';toggle.setAttribute('aria-pressed',String(motionPaused));};
- const start=()=>{if(!video.src){const size=innerWidth<768?'mobile':'desktop';const mp4=video.canPlayType('video/mp4; codecs="avc1.64001F"')!=='';video.src=`/media/hero-${size}.${mp4?'mp4':'webm'}`;}video.play().then(()=>video.classList.add('playing')).catch(()=>{toggle.textContent='Reproduzir vídeo ▷';});};
+ const start=()=>{if(!video.src){const size=innerWidth<768?'mobile':'desktop';const mp4=video.canPlayType('video/mp4; codecs="avc1.64001F"')!=='';video.src=`${import.meta.env.BASE_URL.replace(/\/$/,'')}/media/hero-${size}.${mp4?'mp4':'webm'}`;}video.play().then(()=>video.classList.add('playing')).catch(()=>{toggle.textContent='Reproduzir vídeo ▷';});};
  const setPaused=(paused:boolean)=>{motionPaused=paused;if(paused)video.pause();else start();update();window.dispatchEvent(new CustomEvent('mt-motion',{detail:paused}));};
  toggle.addEventListener('click',()=>setPaused(!motionPaused));
  const connection=(navigator as Navigator & {connection?:{saveData?:boolean}}).connection;
