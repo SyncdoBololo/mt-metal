@@ -12,7 +12,7 @@ Requer Node 22.12+ (validado com Node 24). `npm install`, `npm run dev`, `npm ru
 - `src/data/servicos.ts`: seis pilares, descrições, CNAEs, fotos, FAQ e metadados. As rotas são geradas a partir desses dados.
 - `src/data/portfolio.ts`: aplicações ilustrativas; trocar por obras reais somente com informações confirmadas.
 - `src/pages/index.astro`: composição e textos institucionais.
-- `src/assets/img/`: imagens originais. `Photo.astro` gera AVIF e WebP em 480, 768, 1080, 1600 e 2400 px, sem ampliar além do original. A foto 02 e a pasta `referencia/` não são usadas na interface.
+- `src/assets/img/`: imagens originais. `Photo.astro` gera AVIF e WebP em 480, 640, 768, 1080, 1600 e 2400 px, qualidade 60, sem ampliar além do original. A foto 02 e a pasta `referencia/` não são usadas na interface.
 - `src/assets/logo.svg`: wordmark provisório, com perfil I. O header usa a mesma direção tipográfica; substituir ambos pelo logo oficial.
 - `src/styles/tokens.css` e `global.css`: cores e composição responsiva. O cinza de texto foi clareado para leitura sobre grafite.
 - `src/scripts/anim/`: módulos GSAP, ScrollTrigger, SplitText, DrawSVG, Flip, Lenis, cursor, transição e hero.

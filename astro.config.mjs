@@ -7,6 +7,7 @@ export default defineConfig({
   site: process.env.SITE_URL || 'https://syncdobololo.github.io',
   base: process.env.BASE_PATH || '/',
   output: 'static',
+  build: { inlineStylesheets: 'always' },
   integrations: [sitemap()],
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   devToolbar: { enabled: false },
