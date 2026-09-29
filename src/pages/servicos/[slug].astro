@@ -3,9 +3,15 @@ import {withBase} from '../../lib/url';
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
 import {servicos} from '../../data/servicos';
+import {portfolio} from '../../data/portfolio';
 import {whatsappUrl} from '../../data/empresa';
-export function getStaticPaths(){return servicos.map(servico=>({params:{slug:servico.slug},props:{servico}}));}
+
+export function getStaticPaths(){
+  return servicos.map(servico=>({params:{slug:servico.slug},props:{servico}}));
+}
+
 const {servico:s}=Astro.props;
+const galeria = portfolio.filter(item=>item.categoria===s.slug);
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
 const home = new URL(withBase('/'), Astro.site).href;
 const serviceSchema = [
@@ -13,7 +19,69 @@ const serviceSchema = [
   {'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[
     {'@type':'ListItem',position:1,name:'Início',item:home},
     {'@type':'ListItem',position:2,name:'Serviços',item:`${home}#servicos`},
-    {'@type':'ListItem',position:3,name:s.titulo,item:pageUrl}]}
+    {'@type':'ListItem',position:3,name:s.titulo,item:pageUrl}
+  ]}
 ];
 ---
-<Base title={`${s.titulo} em Várzea Grande · MT METAL`} description={s.meta} extraSchema={serviceSchema}><section class="service-hero wrap"><nav aria-label="Caminho de navegação" class="breadcrumb mono"><a href={withBase("/")}>INÍCIO</a> / <a href={withBase("/#servicos")}>SERVIÇOS</a> / {s.curto.toUpperCase()}</nav><div class="service-detail-grid"><div><p class="eyebrow">MT METAL / {s.curto.toUpperCase()}</p><h1>{s.titulo}<span class="orange">.</span></h1><p class="service-subtitle">{s.subtitulo}</p><p>{s.descricao}</p><a href={whatsappUrl} class="button primary">Solicitar orçamento ↗</a><p class="mono cnae">CNAE {s.cnaes.join(' · ')}</p></div><figure class:list={['service-detail-image',{'tank-image':s.slug==='reservatorios'}]}><Photo src={s.imagem} alt={s.alt} eager/><figcaption class="mono">IMAGEM ILUSTRATIVA · {s.curto.toUpperCase()}</figcaption></figure></div></section><section class="section wrap detail-scope"><div><p class="eyebrow">01 / ESCOPO</p><h2>O QUE<br/>ESTÁ <span class="outline-word">INCLUÍDO.</span></h2></div><ul>{s.inclui.map((item,i)=><li><span class="mono orange">0{i+1}</span>{item}</li>)}</ul></section><section class="section wrap faq"><div><p class="eyebrow">02 / ANTES DE COMEÇAR</p><h2>DÚVIDAS<br/>FREQUENTES.</h2></div><div>{s.faq.map(([q,a])=><details><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div></section><section class="detail-cta section wrap"><p class="eyebrow">VÁRZEA GRANDE · CUIABÁ E REGIÃO</p><h2>VAMOS FALAR<br/>DA SUA <span class="orange">OBRA?</span></h2><div class="actions"><a class="button primary" href={whatsappUrl}>Pedir orçamento no WhatsApp ↗</a><a class="button secondary" href={withBase("/#servicos")}>Explorar outros serviços ←</a></div></section></Base>
+
+<Base title={`${s.titulo} em Várzea Grande · MT METAL`} description={s.meta} extraSchema={serviceSchema}>
+  <section class="service-hero wrap">
+    <nav aria-label="Caminho de navegação" class="breadcrumb mono">
+      <a href={withBase('/')}>INÍCIO</a> / <a href={withBase('/#servicos')}>SERVIÇOS</a> / {s.curto.toUpperCase()}
+    </nav>
+    <div class="service-detail-grid">
+      <div>
+        <p class="eyebrow">MT METAL / {s.curto.toUpperCase()}</p>
+        <h1>{s.titulo}<span class="orange">.</span></h1>
+        <p class="service-subtitle">{s.subtitulo}</p>
+        <p>{s.descricao}</p>
+        <a href={whatsappUrl} class="button primary">Solicitar orçamento ↗</a>
+        <p class="mono cnae">CNAE {s.cnaes.join(' · ')}</p>
+      </div>
+      <figure class:list={['service-detail-image',{'tank-image':s.slug==='reservatorios'}]}>
+        <Photo src={s.imagem} alt={s.alt} eager/>
+        <figcaption class="mono">MT METAL · {s.curto.toUpperCase()}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section wrap detail-scope">
+    <div><p class="eyebrow">01 / ESCOPO</p><h2>O QUE<br/>ESTÁ <span class="outline-word">INCLUÍDO.</span></h2></div>
+    <ul>{s.inclui.map((item,i)=><li><span class="mono orange">0{i+1}</span>{item}</li>)}</ul>
+  </section>
+
+  {galeria.length > 0 && (
+    <section class="section wrap service-portfolio" aria-labelledby="service-portfolio-title">
+      <div class="service-portfolio-head">
+        <div>
+          <p class="eyebrow">02 / PORTFÓLIO DO SERVIÇO</p>
+          <h2 id="service-portfolio-title">TRABALHOS DE<br/><span class="outline-word">{s.curto.toUpperCase()}.</span></h2>
+        </div>
+        <p>Imagens do acervo da MT METAL organizadas por tipo de serviço.</p>
+      </div>
+      <div class="service-portfolio-grid">
+        {galeria.map(item=><figure>
+          <Photo src={item.imagem} alt={item.alt} sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 46vw, 31vw"/>
+          <figcaption><h3>{item.titulo}</h3><span class="mono">{item.legenda}</span></figcaption>
+        </figure>)}
+      </div>
+      <a class="text-link service-portfolio-download" href={withBase('/downloads/portfolio-mt-metal.pdf')} download>
+        Baixar portfólio completo <span class="mono">PDF · 16 MB</span><span aria-hidden="true">↓</span>
+      </a>
+    </section>
+  )}
+
+  <section class="section wrap faq">
+    <div><p class="eyebrow">03 / ANTES DE COMEÇAR</p><h2>DÚVIDAS<br/>FREQUENTES.</h2></div>
+    <div>{s.faq.map(([q,a])=><details><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div>
+  </section>
+
+  <section class="detail-cta section wrap">
+    <p class="eyebrow">VÁRZEA GRANDE · CUIABÁ E REGIÃO</p>
+    <h2>VAMOS FALAR<br/>DA SUA <span class="orange">OBRA?</span></h2>
+    <div class="actions">
+      <a class="button primary" href={whatsappUrl}>Pedir orçamento no WhatsApp ↗</a>
+      <a class="button secondary" href={withBase('/#servicos')}>Explorar outros serviços ←</a>
+    </div>
+  </section>
+</Base>
