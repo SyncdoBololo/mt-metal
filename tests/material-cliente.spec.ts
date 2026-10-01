@@ -6,9 +6,9 @@ test('contatos oficiais, acervo e PDF',async({page,request})=>{
  await expect(page.locator('.contact-channels a[href^="https://wa.me/5565996011432"]')).toHaveCount(1);
  await expect(page.locator('.contact-channels a[href^="https://wa.me/5565993330619"]')).toHaveCount(1);
  await expect(page.locator('a[href*="5565993298833"]')).toHaveCount(0);
- await expect(page.locator('.portfolio-item')).toHaveCount(23);
+ await expect(page.locator('.portfolio-item')).toHaveCount(38);
  await expect(page.locator('.portfolio-item')).not.toContainText(['Imagem ilustrativa']);
- await expect(page.locator('.portfolio-item img')).toHaveCount(23);
+ await expect(page.locator('.portfolio-item img')).toHaveCount(38);
  for(const button of await page.locator('[data-filter]').all()){
   await button.click();await expect(page.locator('.portfolio-item:visible').first()).toBeVisible();
  }
@@ -21,11 +21,11 @@ test('contatos oficiais, acervo e PDF',async({page,request})=>{
 test('cada serviço exibe apenas seu portfólio correspondente',async({page})=>{
  const galerias:Record<string,number>={
   armacao:2,
-  'estruturas-metalicas':11,
+  'estruturas-metalicas':21,
   reservatorios:2,
-  'construcao-civil':2,
+  'construcao-civil':4,
   'terraplenagem-infraestrutura':2,
-  andaimes:4,
+  andaimes:7,
  };
  for(const [slug,total] of Object.entries(galerias)){
   await page.goto(`/servicos/${slug}/`);

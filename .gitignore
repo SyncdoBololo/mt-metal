@@ -7,3 +7,4 @@ playwright-report/
 tests/screenshots/
 tests/lighthouse*.json
 tests/lighthouse*.html
+.agents/
