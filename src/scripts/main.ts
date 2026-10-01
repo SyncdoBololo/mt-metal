@@ -11,6 +11,15 @@ if(video){
  ['touchstart','pointerdown','scroll','keydown'].forEach(ev=>window.addEventListener(ev,retry,{once:true,passive:true}));
  if(document.readyState==='complete')start();else window.addEventListener('load',start,{once:true});
 }
+const aboutVideo=document.querySelector<HTMLVideoElement>('#about-video');
+if(aboutVideo){
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let visible=false;
+ const sync=()=>{if(reduced.matches||!visible||document.hidden)aboutVideo.pause();else aboutVideo.play().catch(()=>{});};
+ new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync();},{rootMargin:'120px 0px'}).observe(aboutVideo);
+ document.addEventListener('visibilitychange',sync);
+ reduced.addEventListener('change',sync);
+}
 const menu=document.querySelector<HTMLDialogElement>('#mobile-menu');
 const menuToggle=document.querySelector<HTMLButtonElement>('.menu-toggle');
 menuToggle?.addEventListener('click',()=>{menu?.showModal();menuToggle.setAttribute('aria-expanded','true');});
