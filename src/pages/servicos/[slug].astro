@@ -36,7 +36,6 @@ const serviceSchema = [
         <p class="service-subtitle">{s.subtitulo}</p>
         <p>{s.descricao}</p>
         <a href={whatsappUrl} class="button primary">Solicitar orçamento ↗</a>
-        <p class="mono cnae">CNAE {s.cnaes.join(' · ')}</p>
       </div>
       <figure class:list={['service-detail-image',{'tank-image':s.slug==='reservatorios'}]}>
         <Photo src={s.imagem} alt={s.alt} eager/>
